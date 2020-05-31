@@ -1,5 +1,6 @@
 
 import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,8 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'widget_tweaks',
-    'storages',
-    'face_detector',
 ]
 
 MIDDLEWARE = [
@@ -123,25 +122,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
-
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'rashidhamid139@gmail.com'
-EMAIL_HOST_PASSWORD = 'Anamoly@3'
-
-
-
-AWS_ACCESS_KEY_ID="AKIA45TUDZS3UUHTR6GN"  
-AWS_SECRET_ACCESS_KEY="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"
-AWS_STORAGE_BUCKET_NAME="django-blog-files139"
-
-
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
