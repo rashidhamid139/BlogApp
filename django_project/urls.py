@@ -5,6 +5,7 @@ from django.urls import path, include
 from users.views import register, profile
 from django.conf.urls.static import static
 from django.conf import settings
+from advance import views as aviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,6 +19,11 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('profile/', profile, name='profile'),
     path('dyn/', include('dynamic.urls')),
+
+
+    # advance app url
+    path("image/", aviews.unruly_passengers_csv, name='image'),
+
 ]
 
 if settings.DEBUG:

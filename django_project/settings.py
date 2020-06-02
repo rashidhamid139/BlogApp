@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'storages',
     'face_detector',
+    'advance',
 ]
 
 MIDDLEWARE = [
