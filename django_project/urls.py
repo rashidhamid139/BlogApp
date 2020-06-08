@@ -6,6 +6,7 @@ from users.views import register, profile
 from django.conf.urls.static import static
 from django.conf import settings
 from advance import views as aviews
+from middleware_demo import views as mviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +24,10 @@ urlpatterns = [
 
     # advance app url
     path("image/", aviews.unruly_passengers_csv, name='image'),
+
+
+    #middleware_demo app
+    path("demo/",  mviews.index, name="demo"),
 
 ]
 

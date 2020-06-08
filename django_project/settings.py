@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'storages',
     'face_detector',
     'advance',
+    'middleware_demo',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +44,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+    #middleware_demo
+
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -139,6 +144,7 @@ EMAIL_HOST_PASSWORD = 'Anamoly@3'
 AWS_ACCESS_KEY_ID="AKIA45TUDZS3UUHTR6GN"  
 AWS_SECRET_ACCESS_KEY="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"
 AWS_STORAGE_BUCKET_NAME="django-blog-files139"
+AWS_REGION_NAME = 'ap-south-1'
 
 
 

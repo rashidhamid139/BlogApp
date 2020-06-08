@@ -1,0 +1,18 @@
+
+{% extends 'blog/base.html' %}
+{% block content %}
+
+        {% for question in questions.items %}
+            <div class="article-metadata">
+                <a class="nav-link" href="{{ question.link }}">{{ question.link }}></a>
+                <h2 class="article-title">{{ question.title }}></h2>
+                <h2 class="article-title">{{ question.TypeError }}></h2>
+                <h2 class="list-group">{{ question.tags}}</h2>
+            </div>
+        {% endfor %}
+
+</body>
+</html>
+{% endblock %}
+
+
