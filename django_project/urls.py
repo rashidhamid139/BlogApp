@@ -20,7 +20,7 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('profile/', profile, name='profile'),
     path('dyn/', include('dynamic.urls')),
-
+   
 
     # advance app url
     path("image/", aviews.unruly_passengers_csv, name='image'),

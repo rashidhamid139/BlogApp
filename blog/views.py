@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from .models import Post, Comment
+from django.http import HttpResponse, JsonResponse
+from .models import Post, Comment, Like
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
-
+cache_page(300)
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'
@@ -15,6 +16,17 @@ class PostListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
 
+
+def like(request):
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+        likedpost = Post.objects.get(id=int(post_id))
+        m = Like(post=likedpost)
+        m.save()
+        likeCount = likedpost.like_set.all().count()
+        return JsonResponse({"message": "Success", "likeCount": likeCount})
+    else:
+        return JsonResponse({"message":"Unsuccess"})
 
 class UserPostListView(ListView):
     model = Post
