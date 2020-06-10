@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 # Create your views here.
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        print(form.html())
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -14,8 +17,29 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-        
+        print(form)
     return render(request, 'users/register.html', {'form': form})
+
+
+def validateUsername(request):
+    if request.method == "GET":
+        username =  request.GET.get('username',None)
+        print(username)
+        data = {
+            "is_taken": User.objects.filter(username__iexact=username).exists(),
+            'message': "A user with this username already exists!"
+        }
+        return JsonResponse(data)
+
+def validateEmail(request):
+    if request.method == "GET":
+        email =  request.GET.get('email',None)
+        data = {
+            "is_taken": User.objects.filter(email__iexact=email).exists(),
+            'message': "Email already registered!!"
+        }
+        return JsonResponse(data)
+
 
 @login_required
 def profile(request):

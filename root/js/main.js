@@ -1,5 +1,4 @@
 
-
 $(document).ready(function(){
     $('.likebutton').click(function(){
         var id;
@@ -22,7 +21,6 @@ $(document).ready(function(){
 });
 
 function deleteComment(comment_id){
-    alert(comment_id)
     $.ajax({
         type:'GET',
         url: '/comment-delete/',
@@ -31,25 +29,12 @@ function deleteComment(comment_id){
         },
         success: function(data){
             if (data.status){
-                $("#"+comment_id).parent().parent().hide();
+                // $(this).closest(".media-body, .bg-olive").remove();
+                $("div#"+comment_id).parents(".media-body, .bg-olive").remove();
+                
             }
         }
     });
-};
+}
 
 
-
-function getCookie(name){
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== ''){
-        var cookies = document.cookie.split(';');
-        for (i=0; i<cookies.length; i++){
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length+1) === (name +'=')){
-                cookieValue = decodeURIComponent(cookie.substring(name.length +1));
-
-            }
-        }
-    }
-    return cookieValue;
-};

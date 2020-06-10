@@ -10,7 +10,9 @@
               </div>
               <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
               <p class="article-content">{{ post.content }}</p>
-              <p><a class="likebutton btn btn-primary btn-sm" id="like{{ post.id }}" href="#" data-catid="{{ post.id }}">Like {{ post.like_set.all.count }}</a> </p> 
+              <p>
+                <a class="likebutton btn btn-primary btn-sm mr-4 ml-1" id="like{{ post.id }}" href="#" data-catid="{{ post.id }}">Like {{ post.like_set.all.count }}</a>
+                <a class="likebutton btn btn-secondary btn-sm mr-4 ml-2"  href="{% url 'post-detail'  post.pk %}" >comments {{post.comment_set.all.count }}</a> </p> 
               <p id="message{{post.id}}"></p>
             </div>
 

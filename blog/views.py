@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
-# Create your views here.
+
 
 cache_page(300)
 class PostListView(ListView):
@@ -28,6 +28,15 @@ def like(request):
     else:
         return JsonResponse({"message":"Unsuccess"})
 
+
+def commentDelete(request):
+    if request.method == 'GET':
+        comment_id = request.GET['comment_id']
+        delComment = Comment.objects.get(pk=int(comment_id)).delete()
+        return JsonResponse({'message':"Comment Deleted Successfully!", "status": True})
+    else:
+        return JsonResponse({'message': "Cannot delete comment"+ str(delComment), "status": False})
+
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html'
@@ -40,7 +49,7 @@ class UserPostListView(ListView):
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     form_class = CommentForm
     template_name = 'blog/post_detail.html'
@@ -48,9 +57,7 @@ class PostDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         post = Post.objects.get(pk=self.kwargs['pk'])
         form = self.form_class()
-        print(form)
         comments = Comment.objects.filter(post = post)
-        print([com for com in comments])
         context = {
             'post': post,
             'comments': comments,
@@ -66,7 +73,7 @@ class PostDetailView(DetailView):
         if form.is_valid():
             comment = Comment(author=request.user.username, body = form.cleaned_data['body'], post= post)
             comment.save()
-
+            form = self.form_class()
         comments = Comment.objects.filter(post=post)
         context = {
             "post": post, 

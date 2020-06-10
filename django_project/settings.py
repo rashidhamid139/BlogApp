@@ -39,10 +39,10 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #cache_middleware
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    # #cache_middleware
+    # 'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
     
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,17 +136,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-CACHES = {
-    'default':{
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        'LOCATION': 'blog_cache',
-        "TIMEOUT": 300,
-        'OPTIONS':{
-            "MAX_ENTRIES": 10, 
-            "CULL_FREQUENCY": 1,
-        }
-    }
-}
+# CACHES = {
+#     'default':{
+#         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+#         'LOCATION': 'blog_cache',
+#         "TIMEOUT": 300,
+#         'OPTIONS':{
+#             "MAX_ENTRIES": 10, 
+#             "CULL_FREQUENCY": 1,
+#         }
+#     }
+# }
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
