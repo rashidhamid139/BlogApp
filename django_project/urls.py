@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from users.views import register, profile
+from users.views import register, profile, validateUsername, validateEmail
 from django.conf.urls.static import static
 from django.conf import settings
 from advance import views as aviews
@@ -20,7 +20,8 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('profile/', profile, name='profile'),
     path('dyn/', include('dynamic.urls')),
-
+    path('validate-username/', validateUsername, name="validate-username"),
+    path('validate-email/', validateEmail, name='validate-email'),
 
     # advance app url
     path("image/", aviews.unruly_passengers_csv, name='image'),

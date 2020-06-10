@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     path('', views.PostListView.as_view(), name = 'blog-home'),
@@ -10,4 +10,6 @@ urlpatterns = [
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name= 'post-update' ),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name= 'post-delete' ),
     path('about/', views.about, name='blog-about'),
+    path('like/', views.like, name='like'),
+    path('comment-delete/', views.commentDelete, name='comment-delete'),
 ]

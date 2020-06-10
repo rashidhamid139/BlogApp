@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from .models import Post, Comment
+from django.http import HttpResponse, JsonResponse
+from .models import Post, Comment, Like
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-# Create your views here.
+from django.views.decorators.cache import cache_page
 
 
+cache_page(300)
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'
@@ -15,6 +16,26 @@ class PostListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
 
+
+def like(request):
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+        likedpost = Post.objects.get(id=int(post_id))
+        m = Like(post=likedpost)
+        m.save()
+        likeCount = likedpost.like_set.all().count()
+        return JsonResponse({"message": "Success", "likeCount": likeCount})
+    else:
+        return JsonResponse({"message":"Unsuccess"})
+
+
+def commentDelete(request):
+    if request.method == 'GET':
+        comment_id = request.GET['comment_id']
+        delComment = Comment.objects.get(pk=int(comment_id)).delete()
+        return JsonResponse({'message':"Comment Deleted Successfully!", "status": True})
+    else:
+        return JsonResponse({'message': "Cannot delete comment"+ str(delComment), "status": False})
 
 class UserPostListView(ListView):
     model = Post
@@ -28,7 +49,7 @@ class UserPostListView(ListView):
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     form_class = CommentForm
     template_name = 'blog/post_detail.html'
@@ -36,9 +57,7 @@ class PostDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         post = Post.objects.get(pk=self.kwargs['pk'])
         form = self.form_class()
-        print(form)
         comments = Comment.objects.filter(post = post)
-        print([com for com in comments])
         context = {
             'post': post,
             'comments': comments,
@@ -54,7 +73,7 @@ class PostDetailView(DetailView):
         if form.is_valid():
             comment = Comment(author=request.user.username, body = form.cleaned_data['body'], post= post)
             comment.save()
-
+            form = self.form_class()
         comments = Comment.objects.filter(post=post)
         context = {
             "post": post, 
