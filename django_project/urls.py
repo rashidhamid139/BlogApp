@@ -30,6 +30,9 @@ urlpatterns = [
     #middleware_demo app
     path("demo/",  mviews.index, name="demo"),
 
+    #ajaxdemo
+    path('rooms/', include('rooms.urls')),
+
 ]
 
 if settings.DEBUG:

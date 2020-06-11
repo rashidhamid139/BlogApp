@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'face_detector',
     'advance',
     'middleware_demo',
+    'rooms.apps.RoomsConfig',
 ]
 
 MIDDLEWARE = [

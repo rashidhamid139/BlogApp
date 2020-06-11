@@ -53,3 +53,21 @@ function getCookie(name){
     }
     return cookieValue;
 };
+
+
+
+$(document).ready(function(){
+    $('#id_recipe_name').click(function(){
+        recipe_name = $(this).val()
+        var csrftoken = getCookie('csrftoken')
+        alert(csrftoken)
+       $.ajax({
+           type: 'POST',
+           url: '/nondynamic/',
+           data:{
+               recipe_name: recipe_name
+           }  ,
+       })
+    });
+});
+

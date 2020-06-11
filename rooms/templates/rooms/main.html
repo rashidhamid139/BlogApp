@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <table  class="table table-bordered"  id="myTable">
+        <thead>
+            <th>Name</th>
+            <th>Room Number</th>
+            <th>Number of Beds</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>        </tbody>
+    </table>
+    
+    <div  id="roomform mt-2 mb-10">
+        <button  id="createRoom"  class="btn"> Create Room </button>
+    </div>
+    <hr>
+    <div class="content-sectoopm mb-10"  id="create">
+
+    </div>
+    
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script src="{% static 'js/app.js' %}" type="text/javascript"></script>
+{% endblock %}
