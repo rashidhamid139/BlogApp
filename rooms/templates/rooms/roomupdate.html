@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+<div class="content-section">
+    <form action="{% url 'rooms:room-update' room_id %}" method="POST" id="roomUpdateID">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Update Room</legend>
+            {{ form|crispy }}
+            <div class="form-group">
+                <button class="btn btn-outline-info"  id="{{room_id}}" onclick="updateRoom(this.id)"  type="submit">Update</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

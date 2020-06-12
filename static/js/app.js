@@ -3,7 +3,7 @@ $(document).ready(function(){
     $.ajax({
         url: '/rooms/list/',
         type: 'GET',
-        dataType: 'json',
+        dataType: 'json',   
         success: function(data){
             let rows = '';
             data.rooms.forEach(room => {
@@ -15,7 +15,7 @@ $(document).ready(function(){
                     <td>${ room.room_type }</td>
                     <td>
                         <button class="btn deleteBtn" data-id="${room.id}">Delete</button>
-                        <button class="btn updateBtn" data-id="${room.id}">Update</button>
+                        <button class="btn updateBtn"  onclick="updateRoomGet(this)" data-id="${room.id}">Update</button>
                     </td>
                 </tr>`;
             });
@@ -36,6 +36,7 @@ $(document).ready(function(){
             type: 'GET',
             url: '/rooms/create/',
             success: function(data){
+                $("#create").empty();
                 $("#create").append(data).addClass('mt-10');
             }
         })
@@ -57,39 +58,62 @@ function getCookie(name){
     }
     return cookieValue;
 };
-
 function createRoom(){
-    $("#FormID").on('submit', function(e){
+    $('#FormID').submit(function(e){
         e.preventDefault();
-        $.ajax({
-            url: '/rooms/create/', 
-            type: "POST",
-            data: {
-            csrfmiddlewaretoken: getCookie('csrftoken'),
-            name: $('#id_name').val(),
-            status: $('#id_status').val(),
-            room_number: $('#id_room_number').val(),
-            nobeds: $('#id_nobeds').val(),
-            room_type: $('#id_room_type').val()
-            },
+        var serializedData = $(this).serialize();
 
-            headers: {Accept: 'application/json'},
-            success: function(data){
-                if(data.message){
-                window.location.href = '/rooms/'
-                }
-                else{
-                    alert(data.error)
-                }
-            },
-            error: function(xhr, errmsg, err){
-                alert(xhr, err, errmsg);
-                alert("sdsgvdg")
+        $.ajax({
+            type: 'POST',
+            url: '/rooms/create/',
+            data: serializedData,
+            success: function(response){
+                $('#FormID').hide();
+                $('#myTable').focus();
+                var instance = JSON.parse(response["instance"]);
+                var fields = instance[0]["fields"];
+
+                window.location.href = '/rooms/';
+                
             }
         })
-    });
+    })
 };
 
+
+function updateRoom(room_id){
+
+    var room_id = room_id;
+    $('#roomUpdateID').submit(function(e){
+        e.preventDefault();
+        var serializedData = $(this).serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: `/rooms/update/${room_id}/`,
+            data: serializedData,
+            success: function(response){
+                $('#updateRoomID').hide();
+                $('#myTable').focus();
+                window.location.href = '/rooms/'
+            }
+        })
+    })
+}
+
+
+
+function updateRoomGet(clicked_room){
+    var room_id = clicked_room.getAttribute('data-id');
+    $.ajax({
+        type: 'GET',
+        url: `/rooms/update/${room_id}/`,
+        success: function(data){
+            $("#create").empty();
+            $("#create").append(data).addClass('mt-10');
+        }
+    })
+}
 
 function  deleteRoom(el){
     roomId  =  $(el).data('id')

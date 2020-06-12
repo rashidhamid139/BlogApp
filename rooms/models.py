@@ -13,6 +13,7 @@ class Room(models.Model):
     room_number = models.IntegerField(blank=True, null=True)
     nobeds = models.IntegerField(blank=True, null=True)
     room_type = models.PositiveSmallIntegerField(choices=ROOM_TYPES)
+    
 
     def get_absolute_url(self):
         return reverse('room-list', kwargs={})  
