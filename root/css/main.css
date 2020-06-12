@@ -82,16 +82,3 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
-
-  .glyphicon-home:before{
-    content:"\e021"
-  }
-  .glyphicon-file:before{
-    content:"\e022"
-  }
-  .glyphicon-time:before{
-    content:"\e023"
-  }
-  .glyphicon-road:before{
-    content:"\e024"
-  }
