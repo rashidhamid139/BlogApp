@@ -55,6 +55,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     template_name = 'blog/post_detail.html'
 
     def get(self, request, *args, **kwargs):
+        
         post = Post.objects.get(pk=self.kwargs['pk'])
         form = self.form_class()
         comments = Comment.objects.filter(post = post)
