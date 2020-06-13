@@ -7,11 +7,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstap.3.4.1.css' %}">
+    {% block css %}
+    {% endblock %}
     {% if title %}
         <title>{{ title}}</title>
     {% else %}
@@ -20,34 +22,53 @@
 </head>
 <body>
     <header class="site-header">
-        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav> -->
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-          <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">DPython</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-              <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item ml-3">
+                <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">DataForAll</a>
+              </li>              
+              <li class="nav-item ml-2">
+                <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fa fa-home"></i></a>
+              </li>
+              <li class="nav-item ml-2">
                 <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
-              </div>
-              <!-- Navbar Right Side -->
-              <div class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
+              </li>
+          </ul>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+          <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+              <li class="nav-item ml-2">
                 <a class="nav-item nav-link navbar-right" href="{% url 'post-create' %}">New Post</a>
+              </li>
+              <li class="nav-item ml-2">
                 <a class="nav-item nav-link navbar-right" href="{% url 'profile' %}">Profile</a>
-                <a class="nav-item nav-link glyphicon glyphicon-user" href="{% url 'logout' %}">Logout</a>
-                
-                {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </nav>
-    </header>
+              </li>              
+              <li class="nav-item ml-2">
+                <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-sign"></i></a>
+              </li>
+          {% else %}
+
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          {% endif %}
+          </ul>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ml-3">
+              <a class="nav-item nav-link" href="#">ML Projects</a>
+            </li>
+        </ul>
+    </div>
+  </nav>
+  </header>
+  <br>
     <main role="main" class="container">
         <div class="row">
           <div class="col-md-8">

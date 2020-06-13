@@ -1,12 +1,15 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Post, Comment, Like
 from .forms import CommentForm
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
-
+from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse, resolve
 
 cache_page(300)
 class PostListView(ListView):
@@ -37,6 +40,34 @@ def commentDelete(request):
     else:
         return JsonResponse({'message': "Cannot delete comment"+ str(delComment), "status": False})
 
+@method_decorator(csrf_exempt, name='dispatch')
+def commentUpdate(request, pk):
+
+    if request.method == 'POST':
+        request.POST._mutable = True
+        comm = Comment.objects.get(pk=pk)
+        request.POST['post'] = comm.post.id
+
+        form = CommentForm(request.POST, instance=comm)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"message": "Comment Updated", 'post_id': comm.post.id})
+        else:
+            return JsonResponse({'error': form.errors, 'post_id': comm.post.id })
+    else:
+        comment = Comment.objects.get(pk=pk)
+        initial = {'body': comment.body}
+        form = CommentForm(initial=initial)
+        comment_id = comment.pk
+        print(comment_id)
+        context ={
+            'comment_id': comment_id,
+            'form': form
+        }
+        html = render_to_string('blog/update_comment.html', context)
+        return HttpResponse(html)
+
+
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html'
@@ -55,33 +86,37 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     template_name = 'blog/post_detail.html'
 
     def get(self, request, *args, **kwargs):
-        
         post = Post.objects.get(pk=self.kwargs['pk'])
         form = self.form_class()
-        comments = Comment.objects.filter(post = post)
+        comments = Comment.objects.filter(post = post).order_by('-id')
         context = {
             'post': post,
             'comments': comments,
             'form': form
+            
         }
         return render(request, self.template_name, context)
 
 
 
     def post(self, request,*args, **kwargs):
+        request.POST._mutable = True
+
         post = Post.objects.get(pk=self.kwargs['pk'])
-        form = self.form_class(request.POST)
+        request.POST['post'] = post.id
+        form = self.form_class(request.POST, instance=post)
         if form.is_valid():
             comment = Comment(author=request.user.username, body = form.cleaned_data['body'], post= post)
             comment.save()
             form = self.form_class()
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.objects.filter(post=post).order_by('-id')
+        form = self.form_class()
         context = {
             "post": post, 
             "form": form,
             "comments": comments
         }
-        return render(request, self.template_name, context)
+        return redirect('post-detail', pk=post.id)        # return render(request, self.template_name, context)
 class PostCreateView(LoginRequiredMixin,  CreateView):
     model = Post
     fields = ['title', 'content']

@@ -21,8 +21,39 @@ $(document).ready(function(){
     });
 });
 
+function updateComment(comment_id){
+
+    $.ajax({
+        type:'GET',
+        url: `/comment-update/${comment_id}/`,
+        data : getCookie('csrftoken'),
+        success: function(response){
+            $('#include').empty()
+            $('#include').append(response);
+            $('#updComment').click();
+
+        }
+        
+
+    })
+};
+
+function commentUpdate(comment_id){
+
+    $.ajax({
+        type:'POST',
+        url: `/comment-update/${comment_id}/`,
+        data : {csrfmiddlewaretoken: getCookie('csrftoken'),  },
+        success: function(response){
+            $('#myModal').hide();
+            window.location.href = `/post/${response.post_id}`
+
+        }
+
+    })
+}
 function deleteComment(comment_id){
-    alert(comment_id)
+
     $.ajax({
         type:'GET',
         url: '/comment-delete/',
@@ -53,3 +84,20 @@ function getCookie(name){
     }
     return cookieValue;
 };
+
+
+
+$(document).ready(function(){
+    $('#id_recipe_name').click(function(){
+        recipe_name = $(this).val()
+        var csrftoken = getCookie('csrftoken')
+       $.ajax({
+           type: 'POST',
+           url: '/nondynamic/',
+           data:{
+               recipe_name: recipe_name
+           }  ,
+       })
+    });
+});
+
