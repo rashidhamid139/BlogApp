@@ -1,0 +1,459 @@
+
+{% load static %}
+<html>
+
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/cloudfare.all.min.css' %}">
+<link href="{% static 'css1/css/fonts.googleapis.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/cloudfare.all.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/font-awesome.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/flaticon.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/owl.carousel.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/magnific-popup.css' %}" />
+<link rel="stylesheet" href="{% static 'css1/css/style.css' %}" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-3">
+              <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">DataForAll</a>
+            </li>              
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fa fa-home" style="font-size:12px"></i></a>
+            </li>
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link navbar-right" href="{% url 'post-create' %}">New Post</a>
+            </li>
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link navbar-right" href="{% url 'profile' %}">Profile</a>
+            </li>              
+            <li class="nav-item ml-2">
+              <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt" style="font-size:12px"></i></a>
+            </li>
+        {% else %}
+
+          <li class="nav-item ml-2">
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item ml-2">
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item ml-3">
+            <a class="nav-item nav-link" href="{% url 'profile-intro' %}">Profile</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+</header>
+<br>
+
+
+
+<section class="hero-section spad">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-10 offset-xl-1">
+<div class="row">
+<div class="col-lg-6">
+<div class="hero-text">
+<h3>Rashid Hamid</h3>
+<p>A Pythonista with an aim to make a successful career into the field of Artificial intelligence, I love to use python frameworks such as Django for developing web application & creating REST APIs , Hands-on experience in scikit learn, Numpy and pandas. </p>
+</div>
+<div class="hero-info">
+<h2>General Info</h2>
+<ul>
+<li><span>Date of Birth</span>Mar 06, 1996</li>
+<li><span>Address</span>Baramulla, Jammu & Kashmir</li>
+<!-- <li><span>E-mail</span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88e5e9fae1e9ffe1e4e4e1e9e5fbc8ebe7e5f8e9e6f1a6ebe7e5">[email&#160;protected]</a></li> -->
+<li><span>E-mail</span><a href="" class="__cf_email__" data-cfemail="88e5e9fae1e9ffe1e4e4e1e9e5fbc8ebe7e5f8e9e6f1a6ebe7e5">rashidhamid139@gmail.com</a></li>
+<li><span>Phone </span>+917006159488</li>
+</ul>
+</div>
+</div>
+    <div class="col-lg-6">
+    <figure class="hero-image">
+    <img src="{% static 'img/profilepic.jpg' %}" alt="5">
+    </figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="social-section">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-10 offset-xl-1">
+<div class="social-link-warp">
+<div class="social-links">
+<a href="{{links.github}}"><i class="fa fa-github"></i></a>
+<a href="{{links.linkedin}}"><i class="fa fa-linkedin"></i></a>
+<a href="{{ links.instagram}}"><i class="fa fa-instagram"></i></a>
+<a href="{{links.facebook}}"><i class="fa fa-facebook"></i></a>
+<a href="{{ links.twitter}}"><i class="fa fa-twitter"></i></a>
+</div>
+<h2 class="hidden-md hidden-sm">My Social Profiles</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<section class="resume-section spad">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-7 offset-xl-2">
+<div class="section-title">
+<h2>Work Experience</h2>
+</div>
+<ul class="resume-list">
+<li>
+<h2>2019-Present</h2>
+<h3>Globalhunt India</h3>
+<h4>Python Developer</h4>
+<p>I am currently working as a software developer at Globalhunt india. In my current role I have been using Django framework  for my projects, I have been mostly involved int the backend development and database related functionalities. </p>
+</li>
+<li>
+<h2>Dec 2018 - Feb 2019</h2>
+<h3>BSNL Training center</h3>
+<h4>Intern </h4>
+<p>During this internship i was introduced to various terminology in the field of communication such as GSM, GPRS, LTE/VoLTE. we also used various
+  software such as ATOLL for network monitoring, we also worked on field by checking strength of each transceiver. </p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="resume-section with-bg spad">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-7 offset-xl-2">
+<div class="section-title">
+<h2>Education</h2>
+</div>
+<ul class="resume-list">
+<li>
+<h2>2014-2018</h2>
+<h3>Bachelors in Technology</h3>
+<h4>Institute of technology, University of Kashmir</h4>
+<!-- <p>I have Completed my Bachelors in Electronics and Communication in year 2018 with a cgpa of 8.0 overall. </p> -->
+<p>Percentage - 78% | Brannch: Electronics & communication Engineering</p>
+</li>
+<li>
+<h2>2013</h2>
+<h3>HSC 12th</h3>
+<h4>Higher Secondary School, Delina</h4>
+<!-- <p> I Completed my HSC 12th from a goverment school in my Homtown Baramulla. My percentage in 12th was 92% with Math, Physics and Chemistry being my Major Subjects.  </p> -->
+<p>Percentage - 91.8% | Major: Science</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="review-section spad pb-0">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-7 offset-xl-2">
+<div class="section-title">
+<h2>References</h2>
+</div>
+<div class="review-slider owl-carousel">
+<div class="single-review">
+<div class="qut">“</div>
+<p>I am writing to recommend Rashid ThompsonHamid. SHe worked with me at Acme Inc. as a Junior Python developer and reported to me in my position as Reporting Manager of Hitech.
+
+  As an employee, Rashid was always reliable and resourceful. During his time in my team, he managed to conduct high-impact user research and make a number of key implementations possible that resulted in an improved product (and subsequently increased productivity).
+  
+  I’ve always put a premium on initiative and willingness to learn among my team members and Rashid never failed to deliver on both fronts. An example was when he suggested we create a regular internal meetup where more senior employees could answer questions from other employees about their work. He was the first to take advantage of the knowledge these meetups offered and implemented it in his own work.
+  
+  Rashid is  – a team player with a positive, can-do attitude all the way. I wouldn’t hesitate to hire him again if the opportunity arose. </p>
+<h3>Balraj Yadav</h3>
+<h4>Reporting Manager, GlobalHunt India</h4>
+</div>
+<div class="single-review">
+<div class="qut">“</div>
+<p> Rashid worked for me as a software developer from August 7, 2019. Like all developers, he wrote code for computer software. His responsibilities included requirements gathering, analysis and design of complex Web applications using a variety of technologies. During the course of his employment, Rashid proved himself to be a dependable employee and a hard worker with solid problem solving and technical skills. 
+  Rashid would be an asset to have on any team. To say he's a team leader would be an understatement. during his tenure at our company, he's gone out of his way to welcome newcomers and resolve any problems they might have. He pitches innovative ideas at company meetings but also listens to what others have to say, including constructive criticism.  </p>
+<h3>Neha Kathait</h3>
+<h4>HR, GlobalHunt India</h4>
+</div>
+<!-- <div class="single-review"> -->
+<!-- <div class="qut">“</div>
+<p>Sit amet, consectetur adipiscing elit. Sed porttitor orci ut sapien scelerisque viverra. Sed trist ique justo nec mauris efficitur, ut lacinia elit dapibus. In egestas elit in dap ibus laoreet. Duis magna libero, fermentum ut facilisis id, pulvinar eget tortor. Vestibulum pelle ntesque tincidunt lorem, vitae euismod felis porttitor sed. </p>
+<h3>Robert G. Smith</h3>
+<h4>Manager, Company</h4> -->
+<!-- </div> -->
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<section class="extra-section spad pb-0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2">
+        <div class="section-title">
+          <h2>Technical Skills</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress1" class="prog-circle"></div>
+                  <div class="progress-info">
+                    <h2>80%</h2>
+                  </div>
+                  <div class="prog-title">
+                    <h3>Python</h3>
+                    <p>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress1" class="prog-circle"></div>
+                  <div class="progress-info">
+                    <h2>70%</h2>
+                  </div>
+                  <div class="prog-title">
+                    <h3>Django</h3>
+                    <p>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress2" class="prog-circle"></div>
+                    <div class="progress-info">
+                    <h2>75%</h2>
+                    </div>
+                    <div class="prog-title">
+                    <h3>MYSQL</h3>
+                    <p>.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress1" class="prog-circle"></div>
+                  <div class="progress-info">
+                    <h2>70%</h2>
+                  </div>
+                  <div class="prog-title">
+                    <h3>Numpy/Pandas</h3>
+                    <p>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress1" class="prog-circle"></div>
+                  <div class="progress-info">
+                    <h2>70%</h2>
+                  </div>
+                  <div class="prog-title">
+                    <h3>Scikit Learn</h3>
+                    <p>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-2 pt-5">
+            <div class="fact-box trans">
+              <div class="fact-content">
+                <div class="circle-progress">
+                  <div id="progress1" class="prog-circle"></div>
+                  <div class="progress-info">
+                    <h2>60%</h2>
+                  </div>
+                  <div class="prog-title">
+                    <h3>AWS</h3>
+                    <p>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="extra-section spad pb-0">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-8 offset-xl-2">
+<div class="section-title">
+<h2>Extra Skills</h2>
+</div>
+<div class="row">
+<div class="col-lg-3 col-md-6 pt-5">
+<div class="fact-box trans">
+<div class="fact-content">
+<div class="circle-progress">
+<div id="progress1" class="prog-circle"></div>
+<div class="progress-info">
+<h2>75%</h2>
+</div>
+<div class="prog-title">
+<h3>Inspiration</h3>
+<p>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 pt-5">
+<div class="fact-box trans">
+<div class="fact-content">
+<div class="circle-progress">
+<div id="progress2" class="prog-circle"></div>
+<div class="progress-info">
+<h2>83%</h2>
+</div>
+<div class="prog-title">
+<h3>Team Work</h3>
+<p>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6">
+<div class="fact-box">
+<div class="fact-content">
+<img src="{% static 'img/icon/1-w.png' %}" alt="">
+<h2>1</h2>
+<p>Years of Experience</p>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6">
+<div class="fact-box">
+<div class="fact-content">
+<img src="{% static 'img/icon/publication.png' %}" alt="">
+<h2>2</h2>
+<p>Publications</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="contact-section spad">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xl-8 offset-xl-2">
+<div class="section-title">
+<h2>Contact Me</h2>
+</div>
+<form action="{% url 'profile-intro' %}" method="POST" class="contact-form">
+  {% csrf_token %}
+<div class="row">
+<div class="col-md-6">
+  {{ form.name }}
+  <!-- <input type="text" placeholder="Name"> -->
+</div>
+<div class="col-md-6">
+  {{ form.email }}
+<!-- <input type="text" placeholder="E-mail"> -->
+</div>
+<div class="col-md-12">
+  {{ form.subject }}
+  {{ form.message }}
+<!-- <input type="text" placeholder="Subject"> -->
+<!-- <textarea placeholder="Message"></textarea> -->
+</div>
+</div>
+<div class="text-md-right">
+<button class="site-btn" type="submit">Send message</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+
+<footer class="footer-section">
+<div class="container text-center">
+<div class="copyright">
+Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="cf2d84a2570a0368c733922e-text/javascript">document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+
+</div>
+</div>
+</footer>
+
+<script src="{% static 'js1/js/jquery-2.1.4.min.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script src="{% static 'js1/js/bootstrap.min.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script src="{% static 'js1/js/owl.carousel.min.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script src="{% static 'js1/js/magnific-popup.min.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script src="{% static 'js1/js/circle-progress.min.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script src="{% static 'js1/js/main.js' %}" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="cf2d84a2570a0368c733922e-text/javascript"></script>
+<script type="cf2d84a2570a0368c733922e-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="cf2d84a2570a0368c733922e-|49" defer=""></script>
+</body>
+
+</html>

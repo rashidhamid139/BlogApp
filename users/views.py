@@ -9,7 +9,6 @@ from django.http import JsonResponse
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        print(form.html())
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -17,14 +16,12 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-        print(form)
     return render(request, 'users/register.html', {'form': form})
 
 
 def validateUsername(request):
     if request.method == "GET":
         username =  request.GET.get('username',None)
-        print(username)
         data = {
             "is_taken": User.objects.filter(username__iexact=username).exists(),
             'message': "A user with this username already exists!"

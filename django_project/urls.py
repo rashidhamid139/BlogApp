@@ -33,6 +33,9 @@ urlpatterns = [
     #ajaxdemo
     path('rooms/', include('rooms.urls')),
 
+    #social_django
+    path('oauth/', include('social_django.urls', namespace='social')),
+
 ]
 
 if settings.DEBUG:

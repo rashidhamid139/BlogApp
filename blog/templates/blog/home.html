@@ -12,7 +12,7 @@
               <p class="article-content">{{ post.content }}</p>
               <p>
                 <a class="likebutton btn btn-primary btn-sm mr-4 ml-1" id="like{{ post.id }}" href="#" data-catid="{{ post.id }}">Like {{ post.like_set.all.count }}</a>
-                <a class="likebutton btn btn-secondary btn-sm mr-4 ml-2"  href="{% url 'post-detail'  post.pk %}" >comments {{post.comment_set.all.count }}</a> </p> 
+                <a class="btn btn-secondary btn-sm mr-4 ml-2"  href="{% url 'post-detail'  post.pk %}" >comments {{post.comment_set.all.count }}</a> </p> 
               <p id="message{{post.id}}"></p>
             </div>
 
@@ -39,4 +39,7 @@
       <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
     {% endif %}
     {% endif %}
-{% endblock %}}
+{% endblock %}
+{% block about %}
+{% include 'blog/about.html' %}
+{% endblock %}

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'advance',
     'middleware_demo',
     'rooms.apps.RoomsConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -51,10 +52,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    #social_django
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+
 
     #middleware_demo
 
 ]
+
+
+
 
 ROOT_URLCONF = 'django_project.urls'
 
@@ -69,10 +76,24 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+
+                #social_django
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
@@ -157,23 +178,44 @@ LOGIN_URL = 'login'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'rashidhamid139@gmail.com'
-EMAIL_HOST_PASSWORD = 'bxuoopqkzngtyema'
+EMAIL_HOST_PASSWORD = 'bhjmbwqvhuzsdxaf'
+
+DEFAULT_FROM_USER = EMAIL_HOST_USER
 
 
 
 AWS_ACCESS_KEY_ID="AKIA45TUDZS3UUHTR6GN"  
 AWS_SECRET_ACCESS_KEY="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"
-AWS_STORAGE_BUCKET_NAME="django-blog-files139"
-AWS_REGION_NAME = 'ap-south-1'
-
+AWS_STORAGE_BUCKET_NAME="data-for-all-files139"
+AWS_SS3_REGION_NAME = "ap-south-1"
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+#social-django
+SOCIAL_AUTH_GITHUB_KEY = 'e0226c674f88cac56b5d'
+SOCIAL_AUTH_GITHUB_SECRET = 'eed03edd34c0525a25b5fb0b77c4ae029ddd7799'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '375927473370726'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'cf5c63019cbe4f9ae6f2f598c45f8f2c'
+
+
+SOCIAL_LINKS = {
+    'github': 'https://github.com/rashidhamid139',
+    'facebook': 'https://www.facebook.com/rashid.hamid3?ref=bookmarks',
+    'twitter':  'https://twitter.com/rashidhamid139',
+    'linkedin':  'https://www.linkedin.com/in/rashid-hamid-dar-698279b7/',
+    'instagram':  '',
+}

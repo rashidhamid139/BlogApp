@@ -1,7 +1,8 @@
 
 
 $(document).ready(function(){
-    $('.likebutton').click(function(){
+    $('.likebutton').click(function(e){
+        e.preventDefault();
         var id;
         id = $(this).attr('data-catid');
         $.ajax(
@@ -13,8 +14,14 @@ $(document).ready(function(){
                 },
                 success: function(data){
                     $('#like'+id).text("Like " + data.likeCount)
-                    $('#like'+ id).removeClass('btn btn-primary btn-sm');
-                    $('#like'+ id).addClass('btn btn-success btn-sm');
+                    if (data.status){
+                        $('#like'+ id).removeClass('btn btn-primary btn-sm');
+                        $('#like'+ id).addClass('btn btn-success btn-sm');
+                    }
+                    else{
+                        $('#like'+ id).removeClass('btn btn-success btn-sm');
+                        $('#like'+ id).addClass('btn btn-primary btn-sm');
+                    }
                 }
             }
         )
@@ -22,7 +29,6 @@ $(document).ready(function(){
 });
 
 function updateComment(comment_id){
-
     $.ajax({
         type:'GET',
         url: `/comment-update/${comment_id}/`,
@@ -31,7 +37,6 @@ function updateComment(comment_id){
             $('#include').empty()
             $('#include').append(response);
             $('#updComment').click();
-
         }
         
 

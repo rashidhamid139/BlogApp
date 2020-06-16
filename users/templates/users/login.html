@@ -1,5 +1,8 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 {% block content %}
     <div class="content-section">
         <form method="POST">
@@ -17,6 +20,11 @@
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">Need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></small>
+        </div>
+        <div class="border-top pt-3">
+            <h1 class="content-header">Login With: </h1>
+            <a href="{% url 'social:begin' 'github' %}"><i style="font-size:24px;color:black" class="fa">&#xf09b;</i></a>
+            <a href="{% url 'social:begin' 'facebook' %}"><i style="font-size:24px;color:rgb(113, 113, 189)" class="fa">&#xf230;</i></a>
         </div>
     </div>
 {% endblock %}

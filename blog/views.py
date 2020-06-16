@@ -1,13 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Post, Comment, Like
-from .forms import CommentForm
+from .forms import CommentForm, FeedBackForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
 from django.template.loader import render_to_string
+from django.contrib import messages
 from django.utils.decorators import method_decorator
+from django.conf import settings
+from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse, resolve
 
@@ -23,14 +26,16 @@ class PostListView(ListView):
 def like(request):
     if request.method == 'GET':
         post_id = request.GET['post_id']
-        likedpost = Post.objects.get(id=int(post_id))
-        m = Like(post=likedpost)
-        m.save()
-        likeCount = likedpost.like_set.all().count()
-        return JsonResponse({"message": "Success", "likeCount": likeCount})
-    else:
-        return JsonResponse({"message":"Unsuccess"})
+        post = Post.objects.get(id=post_id)
 
+        obj, created = Like.objects.get_or_create(post= post, user=request.user)
+        if created:
+            likeCount = post.like_set.all().count()
+            return JsonResponse({"status": True, "likeCount": likeCount})
+        else:
+            obj.delete()
+            likeCount = post.like_set.all().count()
+            return JsonResponse({'status': False, "likeCount": likeCount})
 
 def commentDelete(request):
     if request.method == 'GET':
@@ -59,7 +64,6 @@ def commentUpdate(request, pk):
         initial = {'body': comment.body}
         form = CommentForm(initial=initial)
         comment_id = comment.pk
-        print(comment_id)
         context ={
             'comment_id': comment_id,
             'form': form
@@ -159,3 +163,20 @@ def home(request):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'about'})
+
+
+def profile_intro(request):
+    links = settings.SOCIAL_LINKS
+
+
+    if request.method == 'POST':
+        form = FeedBackForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            send_mail('Thanks you for your feedback', 'We Will contact you shorly', settings.EMAIL_HOST_USER, [email], fail_silently=False)
+            messages.success(request, "Feedback submitted successfully")
+            form = FeedBackForm()
+            return render(request, 'blog/selfprofile.html', {'form': form, 'links': links})
+    form = FeedBackForm()
+
+    return render(request, 'blog/selfprofile.html', {'form': form, 'links': links})
