@@ -174,7 +174,6 @@ def profile_intro(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             send_mail('Thanks you for your feedback', 'We Will contact you shorly', settings.EMAIL_HOST_USER, [email], fail_silently=False)
-            messages.success(request, "Feedback submitted successfully")
             form = FeedBackForm()
             return render(request, 'blog/selfprofile.html', {'form': form, 'links': links})
     form = FeedBackForm()
