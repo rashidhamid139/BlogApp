@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'middleware_demo',
     'rooms.apps.RoomsConfig',
     'social_django',
+    'test_mod',
 ]
 
 MIDDLEWARE = [
