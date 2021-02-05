@@ -99,3 +99,17 @@ class Entry(models.Model):
 
     def __str__(self):
         return self.headline
+
+
+class RemoteAPIAccount(models.Model):
+    access_token = models.CharField(max_length=200)
+    access_token_expires = models.DateTimeField()
+
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name="%(app_label)s_%(class)s_single_instance",
+                check=models.Q(id=1),
+            )
+        ]
