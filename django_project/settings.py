@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'rooms.apps.RoomsConfig',
     'social_django',
     'test_mod',
+    'verifications',
+    'rest_framework',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
 ]
 
 MIDDLEWARE = [

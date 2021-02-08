@@ -22,6 +22,7 @@ urlpatterns = [
     path('dyn/', include('dynamic.urls')),
     path('validate-username/', validateUsername, name="validate-username"),
     path('validate-email/', validateEmail, name='validate-email'),
+    path('verify/', include('verifications.urls')),
 
     # advance app url
     path("image/", aviews.unruly_passengers_csv, name='image'),
