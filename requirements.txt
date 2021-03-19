@@ -17,7 +17,7 @@ django-rest-auth==0.9.5
 django-restframework==0.0.1
 django-storages==1.9.1
 django-widget-tweaks==1.4.8
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 docutils==0.15.2
 idna==2.8
