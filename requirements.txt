@@ -59,6 +59,6 @@ sqlparse==0.3.0
 threadpoolctl==2.1.0
 turtles==1.0.0
 typing-extensions==3.7.4.1
-urllib3==1.25.7
+urllib3==1.25.8
 wfdb==3.0.1
 yarl==1.4.2
